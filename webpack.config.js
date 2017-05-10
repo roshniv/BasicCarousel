@@ -1,5 +1,6 @@
 var webpack = require('webpack');
 var path = require('path');
+var ExtractTextPlugin = require("extract-text-webpack-plugin");
 
 var BUILD_DIR = path.resolve(__dirname, 'src/client/public');
 var APP_DIR = path.resolve(__dirname, 'src/client/app');
@@ -16,9 +17,16 @@ var config = {
         test : /\.jsx?/,
         include : APP_DIR,
         loader : 'babel-loader'
+      },
+      { 
+        test: /\.css$/,
+        loader: ExtractTextPlugin.extract('css-loader') 
       }
     ]
-  }
+  },
+  plugins: [
+    new ExtractTextPlugin("css/style.css")
+  ]
 };
 
 module.exports = config;
