@@ -1,19 +1,13 @@
 import React from 'react';
 import {render} from 'react-dom';
 import Carousel from './Carousel.jsx';
+import data from './data.json';
 
 export default class DemoCarousel extends React.Component {
   	render () {
-	  	var carouselImages = [
-			"images/bike.png",
-			"images/library.png",
-			"images/people.png",
-			"images/bust.png",
-			"images/cat.png"
-		];
-	    return (
+	  	return (
 			<div className="main">
-				<Carousel images={carouselImages} />
+				<Carousel dataArray={data.carousel} />
 			</div>
 		);
   	}

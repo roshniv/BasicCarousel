@@ -7,10 +7,8 @@ export default class Carousel extends React.Component {
 	constructor(props) {
     	super(props);
     	this.state = {
-    		images: [],
-    		defaultSelectedIndex: 0,
-    		slideshowDelay: 400,
-    		animationDirection: 'previous',
+    		dataArray: [],
+    		animationDirection: 'next',
     		selectedIndex: 0
     	};
     	this.goInDirection = this.goInDirection.bind(this);
@@ -28,8 +26,8 @@ export default class Carousel extends React.Component {
 	}
 
   	componentWillMount() {
-		if (this.props.images) {
-			this.setState({images: this.props.images});
+		if (this.props.dataArray) {
+			this.setState({dataArray: this.props.dataArray});
 		}
 	}
 
@@ -37,11 +35,18 @@ export default class Carousel extends React.Component {
 		var selected = this.state.selectedIndex;
 		var props = {
 			key: selected,
-			src: this.state.images[selected]
+			src: this.state.dataArray[selected].imageurl
 		};
 
 		return (
-			<img {...props} />
+			<div>
+				<img {...props} />
+				<div className="content">
+					<h3>{this.state.dataArray[selected].title}</h3>
+					<p>{this.state.dataArray[selected].synopsis}</p>
+					<a href={"http://" + this.state.dataArray[selected].link} target="_blank">{this.state.dataArray[selected].link}</a>
+				</div>
+			</div>
 		);
 	}
 
@@ -71,7 +76,7 @@ export default class Carousel extends React.Component {
 	}
 
   	goInDirection(direction) {
-		var totalImages = this.state.images.length;
+		var totalImages = this.state.dataArray.length;
 		var modifier = (direction === 'next') ? 1 : -1;
 		var newIndex = this.state.selectedIndex + modifier;
 
