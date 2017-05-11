@@ -18,9 +18,14 @@ var config = {
         include : APP_DIR,
         loader : 'babel-loader'
       },
-      { 
-        test: /\.css$/,
-        loader: ExtractTextPlugin.extract('css-loader') 
+      { test: /\.css$/, 
+        loader: ExtractTextPlugin.extract({ fallback: 'style-loader', use: 'css-loader' })
+      },
+      { test: /\.scss$/, 
+        loader: ExtractTextPlugin.extract({
+          fallback: "style-loader",
+          use: "css-loader!sass-loader",
+        })
       }
     ]
   },
